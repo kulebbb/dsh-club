@@ -18,9 +18,9 @@ export function SidebarPanelIcon(props: { size?: number; active?: boolean }): JS
       strokeLinecap="round"
       aria-hidden="true"
     >
-      <circle cx="8" cy="4.6" r="2" />
-      <path d="M8 6.6v4.6" />
-      <rect x="3.2" y="11.2" width="9.6" height="2.4" rx="1.2" />
+      <circle cx="8" cy="4.4" r="2.1" />
+      <path d="M8 6.5v4.4" />
+      <path d="M3.6 12.2h8.8" strokeWidth="2.8" />
     </svg>
   )
 }
