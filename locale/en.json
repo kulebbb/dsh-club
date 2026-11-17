@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "Club",
-    "description": "Adds a Club panel in the sidebar: a container for entertainment modules while the agent works. The panel provides only the frame and headings; modules register themselves through a small contract. Skeleton release with module content still undecided. Runs entirely in the browser, with no network calls and no model context."
+    "description": "Adds a Club panel in the sidebar: a container for entertainment modules while the agent works. The panel provides only the frame and headings; modules are compiled into it through a small contract. Skeleton release with module content still undecided. Runs entirely in the browser, with no network calls and no model context."
   }
 }

@@ -5,11 +5,18 @@
  * 每个接口标了来源，升级 DSH 后按图核对：
  *   - `locale` / `slots`：client 基础服务（`@deepseek-ai/dsh-client-*`）；
  *   - `effect` / `inject`：Cordis 上下文能力。
+ * 这些签名只覆盖本插件当前用到的调用面（返回值都被忽略），不是 Cordis 的完整定义。
  */
 
 export type { Translate } from '../shared/types.ts'
 
-/** 中央面板 id 的品牌类型：DSH 的 `MainPanelId` 不对外导出，这里只做编译期标记，防止与侧边栏 id 写岔。 */
+/**
+ * 中央面板 id 的品牌类型。
+ *
+ * DSH 的 `MainPanelId` 定义在 `@deepseek-ai/dsh-client-ui-layout` 的 client 入口；本仓库
+ * 不引 DSH 类型包，这里用品牌类型代替，只做编译期标记。运行时两侧参数都是 string，
+ * 防写岔靠 `PANEL_ID` 单点定义，别指望这个类型。
+ */
 declare const mainPanelIdBrand: unique symbol
 export type MainPanelId = string & { readonly [mainPanelIdBrand]: true }
 
@@ -38,5 +45,5 @@ export interface ClientContext {
   locale: LocaleService
   slots: SlotsService
   effect(factory: () => (() => void) | void, label?: string): () => void
-  inject(services: string[], callback: (scope: ClientContext) => void): void
+  inject(services: string[], callback: (scope: ClientContext) => void): () => void
 }

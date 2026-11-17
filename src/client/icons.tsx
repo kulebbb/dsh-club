@@ -4,7 +4,10 @@
  * 全部用 `currentColor`，颜色由使用处的主题 token 决定，这里不写死色值。
  */
 
-/** 侧边栏入口：DSH 会传 `size`（收起 16 / 展开 18）与 `active`。 */
+/**
+ * 侧边栏入口：DSH 会传 `size`（收起 16 / 展开 18）与 `active`。
+ * 当前图标不需要区分选中态，`active` 只留在签名里免得宿主传参报错。
+ */
 export function SidebarPanelIcon(props: { size?: number; active?: boolean }): JSX.Element {
   const size = props.size ?? 16
   return (
@@ -37,9 +40,9 @@ export function JoystickGlyph(props: { size?: number }): JSX.Element {
       fill="currentColor"
       aria-hidden="true"
     >
-      <circle cx="18" cy="9.4" r="4.2" />
-      <path d="M16.4 13.6h3.2a1.8 1.8 0 0 1 1.8 1.8v6.2h-6.8v-6.2a1.8 1.8 0 0 1 1.8-1.8Z" />
-      <rect x="7.4" y="21.6" width="21.2" height="6" rx="3" />
+      <circle cx="18" cy="9.4" r="3.9" />
+      <path d="M17 12.6h2v9.2h-2z" />
+      <rect x="8.4" y="21.8" width="19.2" height="5.2" rx="2.6" />
     </svg>
   )
 }

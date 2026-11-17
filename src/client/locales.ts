@@ -15,7 +15,7 @@ export const zh: Record<string, string> = {
 
   'empty.title': '还没开张',
   'empty.desc': '内容方向还没定：小游戏、摸鱼电台、让 agent 陪你玩一局，都可以往这儿放。',
-  'empty.hint': '想加点什么，来仓库提个 issue。',
+  'empty.hint': '想加点什么？去仓库提个 issue。',
 }
 
 /** 英文字典；key 必须与 `zh` 完全一致。 */
@@ -25,5 +25,5 @@ export const en: Record<string, string> = {
 
   'empty.title': 'Not open yet',
   'empty.desc': 'Content is still undecided — arcade games, a lo-fi radio, or a round with the agent all fit here.',
-  'empty.hint': 'Ideas are welcome in the issue tracker.',
+  'empty.hint': 'Have an idea? Open an issue on GitHub.',
 }

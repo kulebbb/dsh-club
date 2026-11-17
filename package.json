@@ -54,8 +54,9 @@
     "build": "tsdown",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "check": "pnpm typecheck && pnpm test && pnpm build",
-    "prepublishOnly": "pnpm build"
+    "check:bundle": "node scripts/check-bundle.mjs",
+    "check": "pnpm typecheck && pnpm test && pnpm build && pnpm check:bundle",
+    "prepublishOnly": "pnpm check"
   },
   "devDependencies": {
     "@types/node": "22.20.5",

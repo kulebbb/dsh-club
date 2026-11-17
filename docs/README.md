@@ -7,4 +7,4 @@
 | [modules.md](./modules.md) | 从零加一个娱乐模块：契约、文案、测试、存档 | 想加玩法的人 |
 | [roadmap.md](./roadmap.md) | 已定 / 待定 / 明确不做的方向 | 所有人 |
 
-仓库根目录另有两份：`README.md`（是什么、怎么装）、`CONTRIBUTING.md`（怎么提 PR）。
+仓库根目录另有三份：`README.md`（是什么、怎么装）、`CONTRIBUTING.md`（怎么提 PR）、`SECURITY.md`（安全边界与私密报告方式）。

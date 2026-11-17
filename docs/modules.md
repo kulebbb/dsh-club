@@ -1,6 +1,6 @@
 # 加一个娱乐模块
 
-面板是容器，玩法都做成模块。加一个模块大约四步：写 view、加文案、进注册表、补测试。
+面板是容器，玩法都做成模块。加一个模块大约四步：写组件、加文案、进注册表、补测试。
 
 ## 契约
 
@@ -10,31 +10,32 @@ export interface ClubModule {
   id: string
   titleKey: string
   descriptionKey: string
-  render: (props: { t: Translate }) => ReactNode
+  Component: ComponentType<{ t: Translate }>
 }
 ```
 
 约束：
 
 - `id` 一经发布就别改——将来它是本地存档的 key 前缀。
-- `titleKey` / `descriptionKey` 必须在 `src/client/locales.ts` 的 `zh` 和 `en` 里同时存在，否则测试挂。
-- `render` 返回模块主体；外框、标题、说明由面板画，别自己再套一层卡片。
+- `titleKey` / `descriptionKey` 必须在 `src/client/locales.ts` 的 `zh` 和 `en` 里同时存在，`tests/modules.spec.ts` 会校验。
+- `Component` 是组件，`t` 由面板传进来。模块自己的 UI 文案也一律走 `t`，不要在组件里写死中文或英文。
+- 外框、标题、说明由面板画，模块里别再套一层卡片。
 
 ## 步骤
 
-**1. 写 view。** 放在 `src/client/modules/<id>.tsx`，组件自己管状态：
+**1. 写组件。** 放在 `src/client/modules/<id>.tsx`，组件自己管状态：
 
 ```tsx
 // src/client/modules/example.tsx
 import { useState } from 'react'
-import type { ClubModule } from '../../shared/types.ts'
+import type { ClubModule, Translate } from '../../shared/types.ts'
 
-function ExampleView() {
+function ExampleView({ t }: { t: Translate }) {
   const [round, setRound] = useState(0)
   return (
     <div className="dsc-club-example">
       <button type="button" onClick={() => setRound((n) => n + 1)}>
-        {round === 0 ? '开始' : `第 ${round} 局`}
+        {round === 0 ? t('module.example.start') : t('module.example.round', { n: round })}
       </button>
     </div>
   )
@@ -44,19 +45,23 @@ export const example: ClubModule = {
   id: 'example',
   titleKey: 'module.example.title',
   descriptionKey: 'module.example.desc',
-  render: () => <ExampleView />,
+  Component: ExampleView,
 }
 ```
 
-**2. 加文案。** `src/client/locales.ts` 里中英各加一条：
+**2. 加文案。** `src/client/locales.ts` 里中英各加一份，key 必须成对：
 
 ```ts
 // zh
 'module.example.title': '示例玩法',
-'module.example.desc': '一句话说清这模块是什么。'
+'module.example.desc': '一句话说清这模块是什么。',
+'module.example.start': '开始',
+'module.example.round': '第 {n} 局',
 // en
 'module.example.title': 'Example',
-'module.example.desc': 'One sentence about what this module is.'
+'module.example.desc': 'One sentence about what this module is.',
+'module.example.start': 'Start',
+'module.example.round': 'Round {n}',
 ```
 
 **3. 进注册表。** `src/client/modules.ts`：
@@ -67,12 +72,12 @@ import { example } from './modules/example.tsx'
 export const MODULES: readonly ClubModule[] = [example]
 ```
 
-**4. 补测试。** 在 `tests/` 下加一条渲染测试，照 `tests/panel.spec.tsx` 的写法把模块传进 `<Panel modules={[example]} />`，断言它真渲染出来了。
+**4. 补测试。** 在 `tests/` 下加一条渲染测试，照 `tests/panel.spec.tsx` 的写法把模块传进 `<Panel modules={[example]} />`，断言组件真的渲染出来了。文案是否齐全、id 是否重复，`tests/modules.spec.ts` 会自动覆盖。
 
 ## 样式
 
-- 类名带 `dsc-club-` 前缀，写在 `src/client/styles.ts`；模块自己的样式也可以放模块文件里，但同样只用 token。
-- 只用 `--dsw-*` 主题 token；颜色写死就不跟深浅色。
+- 类名带 `dsc-club-` 前缀。样式可以追加到 `src/client/styles.ts` 的 `CLUB_CSS`，也可以在组件里内联 `<style>`（组件卸载时一起消失）；仓库没有 CSS 文件的构建管线，别 `import './x.css'`。
+- 颜色/字号/圆角只用 `--dsw-*` token，写死颜色就不跟深浅色。
 - 尺寸、间距照宿主同类页面抄，别自创一套节奏。
 
 ## 存档

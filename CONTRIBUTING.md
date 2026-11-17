@@ -14,12 +14,12 @@ pnpm install
 pnpm check          # typecheck + 单测 + 构建，PR 必须过
 ```
 
-改完后在 DSH 里实际看一眼：`pnpm build` → 「插件」页装本地目录 → 左栏点开「娱乐中心」。只有构建通过、没在页面里看过，不算验证完成。
+改完后在 DSH 里实际看一眼：`pnpm build` → 「插件」页 → 「添加插件」填本仓库绝对路径 → 左栏点开「娱乐中心」。只有构建通过、没在页面里看过，不算验证完成。
 
 ## 代码约定
 
-- 文案一律走 `src/client/locales.ts`，中英两份同时加，`pnpm test` 会校验 key 是否对齐。
-- 样式只用 `--dsw-*` 主题 token（颜色/字号/圆角），不写死色值，选择器统一 `dsc-club-` 前缀。
+- 文案一律走 `src/client/locales.ts`，中英两份同时加，`pnpm test` 会校验 key 是否对齐、模块用到的 key 是否齐全。
+- 样式颜色/字号/圆角只用 `--dsw-*` 主题 token，让开窗口顶部用 `--dsh-frame-top-clearance`；不写死色值，选择器统一 `dsc-club-` 前缀。
 - 面板不是会话绑定的，别在里面订阅会话事件；需要会话数据就通过槽位 props 拿。
 - 注释写给下一个读代码的人：解释「为什么这样接」，不复述代码在做什么。
 - 不引第三方 UI 库或 DSH 内部 Client 包；控件照宿主样式自己写。
@@ -31,4 +31,8 @@ pnpm check          # typecheck + 单测 + 构建，PR 必须过
 
 ## 新增模块
 
-照 [docs/modules.md](./docs/modules.md) 走：写 view、加字典 key、push 进注册表、补一条测试。
+照 [docs/modules.md](./docs/modules.md) 走：写组件、加字典 key、push 进注册表、补一条渲染测试。
+
+## 安全问题
+
+不要开公开 issue，按 [SECURITY.md](./SECURITY.md) 私密报告。

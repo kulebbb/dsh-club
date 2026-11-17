@@ -3,9 +3,10 @@
  *
  * 约定：
  * - 颜色 / 圆角 / 字号只用 DSH token（`--dsw-alias-*`、`--dsw-radius-*`、`--dsw-font-*`），
- *   深浅主题由宿主切换，这里不写 hex、不写 `[data-theme]`。
+ *   深浅主题由宿主切换，这里不写 hex、不写 `[data-theme]`；
+ *   页面顶部让开窗口控件用 `--dsh-frame-top-clearance`（内置页面同一写法）。
  * - 全部选择器带 `dsc-club-` 前缀，避免和 DSH 本体 / 其它插件撞名。
- * - 根容器自己滚动，页面居中留白，照宿主同类页面（如插件管理）的节奏。
+ * - 根容器自己滚动，页面居中留白，照宿主同类页面的节奏。
  */
 export const CLUB_CSS = `
 /* ---------- 根容器 ---------- */
@@ -28,7 +29,10 @@ export const CLUB_CSS = `
 .dsc-club-empty h2{margin:2px 0 0;font:var(--dsw-font-s-14);font-weight:600;color:var(--dsw-alias-label-primary)}
 .dsc-club-empty p{margin:0;max-width:420px;font:var(--dsw-font-xs-13);line-height:1.65;
   color:var(--dsw-alias-label-secondary)}
-.dsc-club-empty .dsc-club-hint{font:var(--dsw-font-xxs-12);color:var(--dsw-alias-label-caption)}
+.dsc-club-empty .dsc-club-hint{font:var(--dsw-font-xxs-12);color:var(--dsw-alias-label-caption);
+  text-decoration:underline;text-underline-offset:2px;
+  text-decoration-color:var(--dsw-alias-border-l2)}
+.dsc-club-empty .dsc-club-hint:hover{color:var(--dsw-alias-label-secondary)}
 
 /* ---------- 模块分区 ---------- */
 .dsc-club-modules{display:flex;flex-direction:column;gap:16px}
