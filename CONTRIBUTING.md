@@ -11,16 +11,16 @@
 
 ```bash
 pnpm install
-pnpm check          # typecheck + 单测 + 构建，PR 必须过
+pnpm check          # typecheck + 单测 + 构建 + 产物冒烟检查，PR 必须过
 ```
 
 改完后在 DSH 里实际看一眼：`pnpm build` → 「插件」页 → 「添加插件」填本仓库绝对路径 → 左栏点开「娱乐中心」。只有构建通过、没在页面里看过，不算验证完成。
 
 ## 代码约定
 
-- 文案一律走 `src/client/locales.ts`，中英两份同时加，`pnpm test` 会校验 key 是否对齐、模块用到的 key 是否齐全。
+- 文案一律走 `src/client/locales.ts`，中英两份同时加，`pnpm test` 会校验两份字典的 key 是否对齐、模块契约里的 title / description key 是否存在；组件内部自己的文案 key 要自己补渲染测试盯住。
 - 样式颜色/字号/圆角只用 `--dsw-*` 主题 token，让开窗口顶部用 `--dsh-frame-top-clearance`；不写死色值，选择器统一 `dsc-club-` 前缀。
-- 面板不是会话绑定的，别在里面订阅会话事件；需要会话数据就通过槽位 props 拿。
+- 面板是全局面板，渲染时拿不到会话 props；要会话数据得用宿主提供的 session 服务或投影，别自己订阅 `session/event`。
 - 注释写给下一个读代码的人：解释「为什么这样接」，不复述代码在做什么。
 - 不引第三方 UI 库或 DSH 内部 Client 包；控件照宿主样式自己写。
 

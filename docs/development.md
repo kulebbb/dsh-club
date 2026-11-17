@@ -17,7 +17,7 @@ pnpm check:bundle  # 构建产物冒烟检查（需要先 build）
 pnpm check       # 上面几件一起跑，PR 前跑这个
 ```
 
-`check:bundle` 会假装成 DSH 的客户端加载器执行 `lib/client.js`，核对模块 id 与包名一致、导出 `apply` / `inject`，再检查 `exports`、`files`、图标和 bundle patch 指向的文件都存在。它挡的是「构建成功但装上不生效」这类问题。
+`check:bundle` 会假装成 DSH 的客户端加载器执行 `lib/client.js`，核对模块 id 与包名一致、导出 `apply` / `inject`，再检查 `dsh.client`、`exports` 的必备 subpath、`files` 清单、图标大小、bundle patch 是否真的插入了这个包，以及 `npm pack` 打出来的内容。它挡的是「构建成功但装上不生效」这类问题；不执行 `apply()`，所以槽位注册和渲染仍要靠实机验证。
 
 测试只覆盖不需要宿主的东西：文案字典是否对齐、模块注册表是否完整、面板空状态与模块分区能否渲染。需要宿主才能验证的部分（槽位是否出现、样式是否跟着主题）只能在 DSH 里看。
 

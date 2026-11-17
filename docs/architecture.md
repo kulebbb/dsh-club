@@ -25,7 +25,7 @@ main ──(key: 'club')──> 中央面板
 - `sidebar.panellist` 是 list 槽位：`id` 是入口身份，`order: 30` 排在插件(0)、自动化任务(10)、Skill 管理(20) 之后。
 - `main` 是 keyed 槽位：`key` 必须等于侧边栏的 `id`，点入口才切得过来。两者写岔的表现是「点了没反应」。
 - 两个 `register` 都包在 `ctx.slots.inject(槽位名, ...)` 里：槽位存在才注册，宿主没这个槽位时整块静默跳过，不会留死入口。
-- 两层依赖门禁：导出的 `inject = ['slots', 'locale']` 让整个客户端插件只在服务齐备时激活；`apply` 里再 `ctx.inject` 一次兜底。缺服务时插件不出现，而不是半初始化报错。
+- 依赖门禁分两层：导出的 `inject = ['slots', 'locale']` 是启动门禁，服务缺失时整个客户端插件不激活、`apply` 都不跑；`apply` 里的 `ctx.inject` 是运行期兜底，服务中途缺失时不再注册半套入口。
 
 样式用一段 CSS 字符串在 `apply` 里插到 `<head>`，带 `data-plugin` 标记（重复 apply 时先清旧的），并在 `ctx.effect` 里登记移除，插件卸载时自动清掉。
 

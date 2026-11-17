@@ -5,7 +5,7 @@
 
 > DeepSeek Harness 左侧边栏里的娱乐面板：等 agent 干活的空隙，来这儿坐一会儿。
 
-**当前状态：v0.1 骨架。** 类型检查、单元测试、构建和产物冒烟检查（`pnpm check`）都已通过，但**还没有在 DSH 里实际安装验证过**——侧栏入口、面板实际长什么样、深浅主题，都还没实测。面板目前渲染的是「还没开张」的空状态，具体玩什么也没定。
+**当前状态：v0.1 骨架。** `pnpm check`（类型检查、单测、构建、产物冒烟检查）和 CI（Node 22 / 24）都已通过。以下**尚未在 DSH 实机验证**：本地绝对路径安装与插件行、Plugin Manager 里的标题/描述/图标、侧栏入口（标签、图标、顺序）、点入口切到面板、面板与空状态渲染、深浅主题、中英文切换、macOS 顶部让位与窗口拖动、重新构建后的刷新/重启、卸载或禁用后的样式与槽位清理。模块注册表是空的，还没有真实模块。
 
 ## 它是什么
 
@@ -30,7 +30,7 @@ pnpm build     # 产物在 lib/：index.js（宿主半）+ client.js（浏览器
 /你的路径/dsh-club
 ```
 
-> 本地目录安装是链接这份 checkout、不是复制，所以改完代码要重新 `pnpm build` 再刷新页面。这一步尚未实测，细节见 [docs/development.md](./docs/development.md)。
+> 本地目录安装是链接这份 checkout、不是复制，所以改完代码要重新 `pnpm build`；刷新页面没变化就重启 DSH（新的模块代要重启才加载）。这一步尚未实测，细节见 [docs/development.md](./docs/development.md)。
 
 从 npm 安装：包名 `@kulebbb/dsh-club`，还没发布。
 
@@ -80,7 +80,7 @@ tests/                文案一致性、模块注册表、面板渲染
 
 ## English
 
-dsh-club is a club panel for DeepSeek Harness: a sidebar entry that opens a central panel for entertainment modules. This is a v0.1 skeleton — the panel renders an empty state, the module contract is in place, and the content is still undecided. It runs entirely in the browser, makes no network calls, and never touches model context. See [docs/architecture.md](./docs/architecture.md) for the two-half structure and slot wiring.
+dsh-club is a club panel for DeepSeek Harness: a sidebar entry that opens a central panel for entertainment modules. This is a v0.1 skeleton — the panel renders an empty state, the module contract is in place, and the content is still undecided. It runs entirely in the browser, makes no network calls, and never touches model context. Project docs are currently written in Chinese; [docs/architecture.md](./docs/architecture.md) covers the two-half structure and slot wiring.
 
 ## License
 

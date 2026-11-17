@@ -5,9 +5,9 @@
  *   - `sidebar.panellist`（list 槽位）：`order: 30`，排在插件(0)、自动化任务(10)、Skill 管理(20) 之后；
  *   - `main`（keyed 槽位）：`key` 必须等于侧边栏入口的 `id`，点击侧边栏才切得过来。
  *
- * 两层依赖门禁，代价是一次空转、换来缺服务时不会半初始化：
- *   - 导出的 `inject` 让整个客户端插件只在 slots / locale 齐备时激活；
- *   - 里面再 `ctx.inject` 一次，槽位或文案服务缺失时整块跳过，不留死入口。
+ * 依赖门禁分两层，作用不同：
+ *   - 导出的 `inject` 是启动门禁：slots / locale 缺失时整个客户端插件不激活，apply 都不会跑；
+ *   - apply 里的 `ctx.inject` 是运行期兜底：服务中途缺失时不再注册半套入口，而不是再拦一次启动。
  */
 import type { ClientContext, MainPanelId } from './dsh.ts'
 import { SidebarPanelIcon } from './icons.tsx'

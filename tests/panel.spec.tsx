@@ -1,7 +1,6 @@
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 import { zh } from '../src/client/locales.ts'
-import { MODULES } from '../src/client/modules.ts'
 import { Panel } from '../src/client/views/Panel.tsx'
 import type { ClubModule, Translate } from '../src/shared/types.ts'
 
@@ -25,13 +24,17 @@ function demoModule(id: string, marker: string): ClubModule {
 }
 
 describe('娱乐中心面板', () => {
-  it('注册表为空时渲染空状态', () => {
-    expect(MODULES).toHaveLength(0)
-    const html = renderToStaticMarkup(<Panel t={t} />)
+  it('没有模块时渲染空状态', () => {
+    // 显式传空数组，不依赖当前注册表是否为空——否则加第一个模块时这条就红了。
+    const html = renderToStaticMarkup(<Panel t={t} modules={[]} />)
     expect(html).toContain(zh['empty.title'])
     expect(html).toContain(zh['empty.desc'])
     expect(html).toContain('dsc-club-empty')
     expect(html).not.toContain('class="dsc-club-modules"')
+  })
+
+  it('默认注册表能渲染（不假设其中有没有模块）', () => {
+    expect(() => renderToStaticMarkup(<Panel t={t} />)).not.toThrow()
   })
 
   it('模块按注册表顺序渲染，组件拿到的是同一个 t', () => {

@@ -72,7 +72,7 @@ import { example } from './modules/example.tsx'
 export const MODULES: readonly ClubModule[] = [example]
 ```
 
-**4. 补测试。** 在 `tests/` 下加一条渲染测试，照 `tests/panel.spec.tsx` 的写法把模块传进 `<Panel modules={[example]} />`，断言组件真的渲染出来了。文案是否齐全、id 是否重复，`tests/modules.spec.ts` 会自动覆盖。
+**4. 补测试。** 在 `tests/` 下加一条渲染测试，照 `tests/panel.spec.tsx` 的写法把模块传进 `<Panel modules={[example]} />`，断言组件真的渲染出来了。契约里的 title / description key 和 id 唯一性由 `tests/modules.spec.ts` 自动覆盖；组件内部自己的文案 key（示例里的 `start` / `round`）要在你的渲染测试里断言。
 
 ## 样式
 
