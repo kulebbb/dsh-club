@@ -1,0 +1,77 @@
+{
+  "name": "@kulebbb/dsh-club",
+  "version": "0.1.0",
+  "description": "DeepSeek Harness 的娱乐中心：左栏「娱乐中心」面板，用来装等 agent 干活时的小消遣。当前为骨架版本，模块内容待定。",
+  "license": "MIT",
+  "author": "kulebbb",
+  "homepage": "https://github.com/kulebbb/dsh-club#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kulebbb/dsh-club.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kulebbb/dsh-club/issues"
+  },
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "dsh-plugin",
+    "club",
+    "arcade"
+  ],
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./client": "./lib/client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "locale/*.json",
+    "icon.svg",
+    "cordis.patch.yml",
+    "docs",
+    "README.md",
+    "LICENSE"
+  ],
+  "icon": "./icon.svg",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web"
+    }
+  },
+  "scripts": {
+    "build": "tsdown",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "check": "pnpm typecheck && pnpm test && pnpm build",
+    "prepublishOnly": "pnpm build"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "@types/react": "18.3.28",
+    "@types/react-dom": "18.3.7",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "tsdown": "0.22.14",
+    "typescript": "6.0.3",
+    "vitest": "5.1.0"
+  },
+  "packageManager": "pnpm@11.4.0",
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
